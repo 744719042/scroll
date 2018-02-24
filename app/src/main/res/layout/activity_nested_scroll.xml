@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.scroll.widget.NestedParentLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/image"
+        android:src="@drawable/yellow_mountain"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
+
+    <com.example.scroll.widget.MyListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="600dp">
+
+    </com.example.scroll.widget.MyListView>
+
+</com.example.scroll.widget.NestedParentLayout>

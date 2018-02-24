@@ -11,6 +11,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button multi;
     private Button helper;
     private Button scroll;
+    private Button nestedScroll;
+    private Button nested;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         helper.setOnClickListener(this);
         scroll = (Button) findViewById(R.id.scroll);
         scroll.setOnClickListener(this);
+        nestedScroll = (Button) findViewById(R.id.nestedScroll);
+        nestedScroll.setOnClickListener(this);
+        nested = (Button) findViewById(R.id.nested);
+        nested.setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +45,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == scroll) {
             Intent intent = new Intent(this, ScrollActivity.class);
+            startActivity(intent);
+        } else if (v == nestedScroll) {
+            Intent intent = new Intent(this, NestedActivity.class);
+            startActivity(intent);
+        } else if (v == nested) {
+            Intent intent = new Intent(this, NestedScrollActivity.class);
             startActivity(intent);
         }
     }

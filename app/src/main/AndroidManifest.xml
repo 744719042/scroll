@@ -20,7 +20,9 @@
         <activity android:name=".SingleActivity" />
         <activity android:name=".MultiActivity" />
         <activity android:name=".DraggerHelperActivity" />
-        <activity android:name=".ScrollActivity"></activity>
+        <activity android:name=".ScrollActivity" />
+        <activity android:name=".NestedScrollActivity" />
+        <activity android:name=".NestedActivity"></activity>
     </application>
 
 </manifest>
