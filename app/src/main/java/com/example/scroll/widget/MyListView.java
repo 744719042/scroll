@@ -5,6 +5,7 @@ import android.support.v4.view.NestedScrollingChild;
 import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.ListView;
@@ -14,8 +15,10 @@ import android.widget.ListView;
  */
 
 public class MyListView extends ListView implements NestedScrollingChild {
+    private static final String TAG = "MyListView";
     private NestedScrollingChildHelper scrollingChildHelper;
     private int mLastY;
+    private int mDownY;
     private int mTouchSlop;
     private boolean mIsDragging = false;
     private int[] consumed = new int[2];
@@ -82,30 +85,32 @@ public class MyListView extends ListView implements NestedScrollingChild {
         int y = (int) ev.getRawY();
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
-                mLastY = y;
+                mLastY = mDownY = y;
                 break;
             case MotionEvent.ACTION_MOVE:
                 int dy = y - mLastY;
-                if (!mIsDragging && Math.abs(dy) > mTouchSlop) {
+                Log.d(TAG, "dy = " + dy);
+                if (!mIsDragging && Math.abs(y - mDownY) > mTouchSlop) {
                     mIsDragging = true;
                 }
 
+                mLastY = y;
                 if (mIsDragging) {
-                    if (startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL) &&
+                    if (startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL)&&
                             dispatchNestedPreScroll(0, dy, consumed, offsetWindow)) {
-                        int remain = dy - consumed[1];
-                        if (remain <= 0) {
                             return true;
-                        }
                     }
                 }
-                mLastY = y;
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mIsDragging = false;
                 break;
         }
-        return super.onTouchEvent(ev);
+
+        setNestedScrollingEnabled(false);
+        boolean result = super.onTouchEvent(ev);
+        setNestedScrollingEnabled(true);
+        return result;
     }
 }

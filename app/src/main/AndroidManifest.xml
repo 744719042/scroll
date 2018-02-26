@@ -22,7 +22,6 @@
         <activity android:name=".DraggerHelperActivity" />
         <activity android:name=".ScrollActivity" />
         <activity android:name=".NestedScrollActivity" />
-        <activity android:name=".NestedActivity"></activity>
     </application>
 
 </manifest>

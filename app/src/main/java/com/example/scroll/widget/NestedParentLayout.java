@@ -5,11 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Scroller;
 
+import com.example.scroll.R;
 import com.example.scroll.utils.CommonUtils;
 
 /**
@@ -17,6 +20,10 @@ import com.example.scroll.utils.CommonUtils;
  */
 
 public class NestedParentLayout extends LinearLayout implements NestedScrollingParent {
+    private static final String TAG = "NestedParentLayout";
+    private ListView listView;
+    private Scroller mScroller;
+
     private int mTopViewHeight;
     private NestedScrollingParentHelper nestedScrollingParentHelper;
 
@@ -36,6 +43,13 @@ public class NestedParentLayout extends LinearLayout implements NestedScrollingP
     private void init() {
         mTopViewHeight = CommonUtils.dp2px(150);
         nestedScrollingParentHelper = new NestedScrollingParentHelper(this);
+        mScroller = new Scroller(getContext());
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        listView = (ListView) findViewById(R.id.listView);
     }
 
     @Override
@@ -44,12 +58,22 @@ public class NestedParentLayout extends LinearLayout implements NestedScrollingP
     }
 
     @Override
-    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
-        boolean isDownAndTopShow = dy > 0 && getScrollY() < mTopViewHeight;
-        boolean isUpAndTopShow = dy < 0 && getScaleY() > 0 && ViewCompat.canScrollVertically(target, -1);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        listView.getLayoutParams().height = height;
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
-        if (isDownAndTopShow || isUpAndTopShow) {
-            scrollBy(0, dy);
+    @Override
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        ListView listView = (ListView) target;
+        boolean isDownAndTopShow = dy > 0 && getScrollY() <= mTopViewHeight &&
+                listView.getFirstVisiblePosition() == 0 && listView.getChildAt(0).getTop() == listView.getPaddingTop();
+        boolean isUpAndTopHide = dy < 0 && getScrollY() >= 0 && getScrollY() < mTopViewHeight;
+        Log.d(TAG, "dy = " + dy + ", isDownAndTopShow = " + isDownAndTopShow + ", isUpAndTopHide = " + isUpAndTopHide);
+
+        if (isDownAndTopShow || isUpAndTopHide) {
+            scrollBy(0, -dy);
             consumed[1] = dy;
         }
     }
@@ -83,8 +107,25 @@ public class NestedParentLayout extends LinearLayout implements NestedScrollingP
     public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
         return false;
     }
+
     public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
-        return false;
+        if (getScrollY() >= mTopViewHeight) return false;
+        fling((int) velocityY);
+        return true;
+    }
+
+    public void fling(int velocityY) {
+        mScroller.fling(0, getScrollY(), 0, velocityY, 0, 0, 0, mTopViewHeight);
+        invalidate();
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            postInvalidate();
+        }
     }
 
     public int getNestedScrollAxes() {

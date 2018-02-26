@@ -45,7 +45,12 @@ public class DraggerLayout extends FrameLayout {
                         return true;
                     }
                 }
-                return true;
+
+                if (child instanceof LinearLayout) {
+                    return true;
+                }
+
+                return false;
             }
 
             @Override

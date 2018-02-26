@@ -42,6 +42,5 @@
         android:background="@color/colorAccent"
         android:layout_height="match_parent">
 
-
     </LinearLayout>
 </com.example.scroll.widget.DraggerLayout>

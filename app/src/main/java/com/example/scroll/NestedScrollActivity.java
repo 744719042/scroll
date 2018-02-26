@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.scroll.adapter.UserListAdapter;
+import com.example.scroll.utils.CommonUtils;
 
 public class NestedScrollActivity extends AppCompatActivity {
     private ListView listView;

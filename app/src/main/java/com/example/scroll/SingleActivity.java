@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -52,8 +53,13 @@ public class SingleActivity extends AppCompatActivity {
 //                            text.setX(text.getX() + x - mLastX);
 //                            text.setY(text.getY() + y - mLastY);
 
-                            text.offsetLeftAndRight(x - mLastX);
-                            text.offsetTopAndBottom(y - mLastY);
+//                            text.offsetLeftAndRight(x - mLastX);
+//                            text.offsetTopAndBottom(y - mLastY);
+
+                            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) text.getLayoutParams();
+                            layoutParams.topMargin += y - mLastY;
+                            layoutParams.leftMargin +=  x - mLastX;
+                            text.requestLayout();
                         }
 
                         mLastX = x;
