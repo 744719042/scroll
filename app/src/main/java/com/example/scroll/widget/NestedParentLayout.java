@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.example.scroll.utils.CommonUtils;
 
 public class NestedParentLayout extends LinearLayout implements NestedScrollingParent {
     private static final String TAG = "NestedParentLayout";
-    private ListView listView;
+    private ViewPager viewPager;
     private Scroller mScroller;
 
     private int mTopViewHeight;
@@ -49,7 +50,7 @@ public class NestedParentLayout extends LinearLayout implements NestedScrollingP
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        listView = (ListView) findViewById(R.id.listView);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class NestedParentLayout extends LinearLayout implements NestedScrollingP
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = MeasureSpec.getSize(heightMeasureSpec);
-        listView.getLayoutParams().height = height;
+        viewPager.getLayoutParams().height = height - CommonUtils.dp2px(45);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 

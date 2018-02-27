@@ -22,10 +22,17 @@ import java.util.List;
 public class UserListAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
+    private List<User> data;
 
     public UserListAdapter(Context context) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.data = users;
+    }
+
+    public UserListAdapter(Context context, List<User> users) {
+        this(context);
+        this.data = users;
     }
 
     public static List<User> users = new ArrayList<User>() {
@@ -45,12 +52,12 @@ public class UserListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return users.size();
+        return data.size();
     }
 
     @Override
     public User getItem(int position) {
-        return users.get(position);
+        return data.get(position);
     }
 
     @Override

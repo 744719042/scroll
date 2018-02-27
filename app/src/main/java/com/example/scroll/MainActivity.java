@@ -11,7 +11,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button multi;
     private Button helper;
     private Button scroll;
-    private Button nestedScroll;
     private Button nested;
 
     @Override
