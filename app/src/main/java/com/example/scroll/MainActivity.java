@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button scroll;
     private Button nested;
     private Button dnd;
+    private Button dragList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nested.setOnClickListener(this);
         dnd = (Button) findViewById(R.id.dnd);
         dnd.setOnClickListener(this);
+        dragList = (Button) findViewById(R.id.dragList);
+        dragList.setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == dnd) {
             Intent intent = new Intent(this, DragAndDropActivity.class);
+            startActivity(intent);
+        } else if (v == dragList) {
+            Intent intent = new Intent(this, DragListViewActivity.class);
             startActivity(intent);
         }
     }

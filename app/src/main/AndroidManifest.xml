@@ -22,7 +22,8 @@
         <activity android:name=".DraggerHelperActivity" />
         <activity android:name=".ScrollActivity" />
         <activity android:name=".NestedScrollActivity" />
-        <activity android:name=".DragAndDropActivity"></activity>
+        <activity android:name=".DragAndDropActivity" />
+        <activity android:name=".DragListViewActivity"></activity>
     </application>
 
 </manifest>

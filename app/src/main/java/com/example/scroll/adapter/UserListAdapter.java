@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 public class UserListAdapter extends BaseAdapter {
+    private static final String TAG = "UserListAdapter";
     private Context context;
     private LayoutInflater inflater;
     private List<User> data;
@@ -66,7 +67,7 @@ public class UserListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.user_item, parent, false);
