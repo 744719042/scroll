@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button nested;
     private Button dnd;
     private Button dragList;
+    private Button swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dnd.setOnClickListener(this);
         dragList = (Button) findViewById(R.id.dragList);
         dragList.setOnClickListener(this);
+        swipe = (Button) findViewById(R.id.swipe);
+        swipe.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == dragList) {
             Intent intent = new Intent(this, DragListViewActivity.class);
+            startActivity(intent);
+        } else if (v == swipe) {
+            Intent intent = new Intent(this, SwipeActivity.class);
             startActivity(intent);
         }
     }
