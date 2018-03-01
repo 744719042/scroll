@@ -52,8 +52,15 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/dndList"
+        android:text="拖放列表（DND）"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
         android:id="@+id/dragList"
-        android:text="拖放列表"
+        android:text="拖放列表（WindowManager）"
         android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

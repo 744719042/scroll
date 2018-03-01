@@ -26,7 +26,8 @@
         <activity android:name=".NestedScrollActivity" />
         <activity android:name=".DragAndDropActivity" />
         <activity android:name=".DragListViewActivity" />
-        <activity android:name=".SwipeActivity"></activity>
+        <activity android:name=".SwipeActivity" />
+        <activity android:name=".DndActivity"></activity>
     </application>
 
 </manifest>
